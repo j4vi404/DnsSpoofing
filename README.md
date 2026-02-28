@@ -41,21 +41,23 @@ La implementación de controles como DNSSEC, uso de DNS sobre HTTPS (DoH), DNS s
 
 Las capturas incluidas en este repositorio documentan el proceso completo del laboratorio:
 
-Topología de red del escenario
+- Topología de red del escenario
 
-image
+ <img width="1778" height="825" alt="image" src="https://github.com/user-attachments/assets/1270f1c1-c477-43ad-a5bc-d35bf942e3b8" />
 
-Script DNS Spoofing en ejecución
+---
+- Ejecución del ataque DnS Spoofing
+  
+<img width="797" height="254" alt="image" src="https://github.com/user-attachments/assets/9fd1fba7-e4c9-4108-bc30-6802697653fd" />
 
-image
+---
+ -Tráfico DNS interceptado
+ 
+<img width="1051" height="870" alt="image" src="https://github.com/user-attachments/assets/400c30b3-2385-4f4f-be16-6e3c92a93205" />
 
-Tráfico DNS interceptado en Wireshark
-
-image
-
-Cliente recibiendo respuesta DNS falsa
-
-image
+---
+- Redirección exitosa al sitio web falso
+<img width="911" height="676" alt="image" src="https://github.com/user-attachments/assets/b5234364-7b34-4cab-8621-874c912d8ffb" />
 
 ---
 
@@ -66,7 +68,6 @@ Script de Python que utiliza Scapy para realizar ataques de DNS Spoofing mediant
 ### Requisitos
 ```
 pip install scapy
-pip install netfilterqueue
 ```
 
 ### Uso
