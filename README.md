@@ -95,11 +95,11 @@ Edita las siguientes variables según tu red:
 
 ```python
 interface       = "eth0"            # Interfaz de red del atacante
-ip_atacante     = "192.168.1.50"    # IP del atacante (servidor DNS falso)
-ip_victima      = "192.168.1.10"    # IP de la víctima
-ip_gateway      = "192.168.1.1"     # IP del gateway legítimo
-dominio_falso   = "banco.com"       # Dominio a suplantar
-ip_falsa        = "192.168.1.50"    # IP falsa a retornar en la respuesta DNS
+ip_atacante     = "15.0.7.2"    # IP del atacante (servidor DNS falso)
+ip_victima      = "15.0.7.7"    # IP de la víctima
+ip_gateway      = "15.0.7.1"     # IP del gateway legítimo
+dominio_falso   = "itla.edu.do"       # Dominio a suplantar
+ip_falsa        = "15.0.7.2"    # IP falsa a retornar en la respuesta DNS
 puerto_dns      = 53                # Puerto estándar DNS
 protocolo       = "UDP"             # Protocolo de transporte DNS
 ```
@@ -142,8 +142,7 @@ Elementos de la red:
 - **SW-2:** Switch segmento inferior izquierdo
 - **SW-3:** Switch segmento derecho
 - **R-SD DNS:** Router con servidor DNS legítimo
-- **PNET:** Proveedor de Internet (ISP)
-- **USER:** Clientes víctimas (3 dispositivos)
+- **USER:** Clientes víctimas 
 
 ### Tabla de Interfaces
 
@@ -151,7 +150,7 @@ Elementos de la red:
 
 | Interfaz | Dirección IP | Máscara | Descripción |
 |----------|-------------|---------|-------------|
-| e0 | 15.0.7.50 | /24 | Interfaz principal de ataque |
+| e0 | 15.0.7.2 | /24 | Interfaz principal de ataque |
 | e1 | Acceso Cloud | — | Conexión a Internet |
 
 **R-SD DNS (Router con DNS Legítimo)**
@@ -223,11 +222,11 @@ Elementos de la red:
 | Parámetro | Valor | Descripción |
 |-----------|-------|-------------|
 | Interfaz | eth0 | Interfaz de red del atacante |
-| IP Atacante | 192.168.1.50 | IP del servidor DNS falso |
-| IP Víctima | 192.168.1.10 | IP del cliente objetivo |
-| IP Gateway | 192.168.1.1 | IP del gateway legítimo |
-| Dominio Falso | banco.com | Dominio a suplantar |
-| IP Falsa Retornada | 192.168.1.50 | IP falsa enviada en respuesta DNS |
+| IP Atacante | 15.0.7.2 | IP del servidor DNS falso |
+| IP Víctima | 115.0.7.7 | IP del cliente objetivo |
+| IP Gateway | 15.0.7.1 | IP del gateway legítimo |
+| Dominio Falso | itla.edu.do | Dominio a suplantar |
+| IP Falsa Retornada | 15.0.7.2 | IP falsa enviada en respuesta DNS |
 | Puerto DNS | 53 | Puerto estándar DNS |
 | Protocolo | UDP | Protocolo de transporte DNS |
 | TTL Respuesta | 300 segundos | Tiempo de vida de la respuesta falsa |
@@ -273,19 +272,7 @@ Router(config)# ip dns server
 Router(config)# ip dns primary ejemplo.com SOA ns1.ejemplo.com admin.ejemplo.com
 ```
 
-#### 2. DNS sobre HTTPS / DNS sobre TLS
-Cifra las consultas DNS para evitar interceptación y manipulación
-
-```
-! Configurar DNS sobre TLS en clientes (ejemplo Linux)
-# /etc/systemd/resolved.conf
-[Resolve]
-DNS=1.1.1.1
-DNSOverTLS=yes
-DNSSEC=yes
-```
-
-#### 3. Dynamic ARP Inspection (DAI)
+#### 2 Dynamic ARP Inspection (DAI)
 Previene el envenenamiento ARP utilizado para posicionarse como MitM antes del DNS Spoofing
 
 ```
@@ -297,7 +284,7 @@ SW-3(config)# interface Ethernet0/1
 SW-3(config-if)# ip arp inspection trust
 ```
 
-#### 4. Port Security
+#### 3. Port Security
 Limita direcciones MAC permitidas por puerto para evitar ataques desde dispositivos no autorizados
 
 ```
@@ -308,7 +295,7 @@ SW-3(config-if-range)# switchport port-security violation restrict
 SW-3(config-if-range)# switchport port-security mac-address sticky
 ```
 
-#### 5. ACLs para Restricción de Tráfico DNS
+#### 4. ACLs para Restricción de Tráfico DNS
 Permite consultas DNS únicamente hacia servidores autorizados
 
 ```
@@ -323,7 +310,7 @@ Router(config)# interface Ethernet0/0
 Router(config-if)# ip access-group DNS-CONTROL in
 ```
 
-#### 6. Autenticación 802.1X
+#### 5. Autenticación 802.1X
 Control de acceso a nivel de puerto antes de permitir cualquier tráfico
 
 ```
