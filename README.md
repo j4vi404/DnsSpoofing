@@ -49,6 +49,8 @@ Las capturas incluidas en este repositorio documentan el proceso completo del la
 - Ejecución del ataque DnS Spoofing
   
 <img width="797" height="254" alt="image" src="https://github.com/user-attachments/assets/9fd1fba7-e4c9-4108-bc30-6802697653fd" />
+<img width="611" height="105" alt="image" src="https://github.com/user-attachments/assets/57631c95-005c-484d-aa43-6588926aa39b" />
+
 
 ---
  -Tráfico DNS interceptado
